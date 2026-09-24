@@ -7,13 +7,13 @@ pairs:
     fiat: EUR
 
 exchanges:
-  - binance   # implemented
-  - bybit     # TODO
-  - okx       # TODO
-  - bitget    # TODO
-  - htx       # TODO
-  - gateio    # TODO
-  - mexc      # TODO
-  - noones    # TODO
-  - bitpapa   # TODO
-  - localcoinswap  # TODO
+  - binance   # implemented, untested live (network blocked in dev sandbox)
+  - bybit     # implemented, untested live (network blocked in dev sandbox)
+  - okx       # implemented, untested live (network blocked in dev sandbox)
+  - bitget    # TODO — apps/connectors/unimplemented.py
+  - htx       # TODO — apps/connectors/unimplemented.py
+  - gateio    # TODO — apps/connectors/unimplemented.py
+  - mexc      # TODO — apps/connectors/unimplemented.py
+  - noones    # TODO — apps/connectors/unimplemented.py
+  - bitpapa   # TODO — apps/connectors/unimplemented.py
+  - localcoinswap  # TODO — apps/connectors/unimplemented.py

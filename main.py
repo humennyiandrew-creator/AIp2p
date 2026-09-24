@@ -9,6 +9,8 @@ from dotenv import load_dotenv
 from apps.alerting.telegram_notifier import TelegramNotifier
 from apps.connectors.base import Side
 from apps.connectors.binance_p2p import BinanceP2P
+from apps.connectors.bybit_p2p import BybitP2P
+from apps.connectors.okx_p2p import OkxP2P
 from apps.fee_analysis.bank_charges import load_bank_fees
 from apps.fee_analysis.profitability import score_opportunity
 from apps.scanner.spread_engine import find_spreads
@@ -17,8 +19,9 @@ from apps.storage.db import get_connection, save_scored_opportunity
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
 log = logging.getLogger("aip2p")
 
-# Only Binance is implemented so far; add connectors here as they land.
-CONNECTORS = [BinanceP2P()]
+# Bitget/HTX/Gate.io/MEXC/Noones/Bitpapa/LocalCoinSwap not implemented yet
+# (see apps/connectors/unimplemented.py) — add them here once built.
+CONNECTORS = [BinanceP2P(), BybitP2P(), OkxP2P()]
 
 
 async def scan_once(config: dict, notifier: TelegramNotifier, db) -> None:
@@ -30,8 +33,11 @@ async def scan_once(config: dict, notifier: TelegramNotifier, db) -> None:
 
         buy_ads, sell_ads = [], []
         for connector in CONNECTORS:
-            buy_ads += await connector.fetch_ads(asset, fiat, Side.BUY)
-            sell_ads += await connector.fetch_ads(asset, fiat, Side.SELL)
+            try:
+                buy_ads += await connector.fetch_ads(asset, fiat, Side.BUY)
+                sell_ads += await connector.fetch_ads(asset, fiat, Side.SELL)
+            except Exception:
+                log.exception("connector %s failed for %s/%s, skipping", connector.name, asset, fiat)
 
         opportunities = find_spreads(buy_ads, sell_ads, min_spread_pct)
         log.info("%s/%s: %d raw opportunities >= %.1f%%", asset, fiat, len(opportunities), min_spread_pct)
