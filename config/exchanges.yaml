@@ -1,0 +1,19 @@
+# Pairs each connector polls, and the minimum spread to alert on.
+min_spread_pct: 1.5
+pairs:
+  - asset: USDT
+    fiat: USD
+  - asset: USDT
+    fiat: EUR
+
+exchanges:
+  - binance   # implemented
+  - bybit     # TODO
+  - okx       # TODO
+  - bitget    # TODO
+  - htx       # TODO
+  - gateio    # TODO
+  - mexc      # TODO
+  - noones    # TODO
+  - bitpapa   # TODO
+  - localcoinswap  # TODO

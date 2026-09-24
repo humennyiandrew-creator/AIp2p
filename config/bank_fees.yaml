@@ -1,0 +1,13 @@
+# Curated, human-maintained. Percent fees only for now (flat fees are a TODO).
+default:
+  bank_transfer: 0.0
+  card: 2.5
+  wire: 1.0
+
+US:
+  bank_transfer: 0.0
+  card: 3.0
+
+EU:
+  bank_transfer: 0.0
+  card: 2.0
